@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   template: `
     <div class="canvas-container">
       <h3>Live Simulation</h3>
-      <canvas #gridCanvas width="800" height="800"></canvas>
+      <canvas #gridCanvas width="600" height="600"></canvas>
     </div>
   `,
   styles: [`
@@ -20,7 +20,6 @@ import { Subscription } from 'rxjs';
     canvas {
       border: 2px solid #333;
       background-color: #f0f0f0; /* Grid background */
-      image-rendering: pixelated; /* Keeps it sharp */
     }
   `]
 })
