@@ -62,6 +62,13 @@ export class GridCanvasComponent implements AfterViewInit, OnDestroy {
       }
     });
 
+    snapshot.pheromones.forEach(scent => {
+      const px = scent.x * this.cellSize;
+      const py = scent.y * this.cellSize;
+        this.ctx.fillStyle = '#E0EE00';
+        this.ctx.fillRect(px, py, this.cellSize, this.cellSize);
+    })
+
     // 2. Dynamic resizing (if grid size changes in Java)
     // You might want to calculate cellSize based on snapshot.width vs canvas.width here.
     

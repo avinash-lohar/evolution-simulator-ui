@@ -8,6 +8,7 @@ export interface GridSnapshot {
   height: number;
   agents: AgentDTO[];
   structures: StructureDTO[];
+  pheromones: PheromonesDTO[];  
   timestamp: number;
 }
 export interface StructureDTO {
@@ -20,6 +21,12 @@ export interface AgentDTO {
   x: number;
   y: number;
   color: string;
+}
+export interface PheromonesDTO {
+  x: number;
+  y: number;
+  intensity: number;
+  type: number;
 }
 
 @Injectable({
