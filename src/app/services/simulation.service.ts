@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
 import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 // Match the DTO structure from Java
 export interface GridSnapshot {
@@ -8,7 +9,7 @@ export interface GridSnapshot {
   height: number;
   agents: AgentDTO[];
   structures: StructureDTO[];
-  pheromones: PheromonesDTO[];  
+  pheromones: PheromonesDTO[];
   timestamp: number;
 }
 export interface StructureDTO {
@@ -35,7 +36,7 @@ export interface PheromonesDTO {
 export class SimulationService {
   private rxStomp: RxStomp;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.rxStomp = new RxStomp();
     this.rxStomp.configure({
       brokerURL: 'ws://localhost:8080/evoswarm-ws/websocket', // Ensure this matches your Spring Config
@@ -60,5 +61,17 @@ export class SimulationService {
 
   disconnect() {
     this.rxStomp.deactivate();
+  }
+
+  startSim() {
+    return this.http.post('http://localhost:8080/api/sim/start', {}).subscribe();
+  }
+
+  stopSim() {
+    return this.http.post('http://localhost:8080/api/sim/stop', {}).subscribe();
+  }
+
+  updateEvaporation(rate: number) {
+    return this.http.post(`http://localhost:8080/api/sim/params/gravity?value=${rate}`, {}).subscribe();
   }
 }
